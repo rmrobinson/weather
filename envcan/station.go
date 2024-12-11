@@ -94,6 +94,9 @@ func (s *Station) refresh(ctx context.Context) error {
 			zap.Error(err),
 		)
 		return err
+	} else if feed == nil {
+		s.logger.Info("no feed from station to refresh, ignoring", zap.String("station_title", s.title))
+		return nil
 	}
 
 	report, forecast, err := s.parseFeed(feed)
